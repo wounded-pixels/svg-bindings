@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Circles</title>
+    <script src="./svg-bindings.vanilla.js"></script>
+  </head>
+  <body>
+    <h1>circles</h1>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      id="mount-circles"
+      viewBox="0 0 100 100"
+    ></svg>
+
+    <h1>hand coded</h1>
+    <svg id="handcoded" viewBox="0 0 100 100">
+      <circle cx="10" cy="10" r="5" fill="blue"></circle>
+      <circle cx="50" cy="50" r="5" fill="blue"></circle>
+    </svg>
+
+    <script>
+      const { Circles } = SvgBindings;
+      const mountPoint = document.querySelector("#mount-circles");
+      const circles = new Circles(mountPoint, model => model.id);
+      circles
+        .cx(m => m.x)
+        .cy(m => m.y)
+        .r(m => m.id * 5)
+        .fill(m => (m.id % 2 ? "red" : "blue"))
+        .stroke("black")
+        .strokeWidth(0.5);
+
+      circles.update([{ id: 1, x: 10, y: 10 }, { id: 2, x: 50, y: 50 }]);
+      setTimeout(() => {
+        circles.update([{ id: 1, x: 30, y: 10 }]);
+      }, 1000);
+    </script>
+  </body>
+</html>

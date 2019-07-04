@@ -1,0 +1,58 @@
+{
+  "name": "@wounded-pixels/svg-bindings",
+  "description": "Binding model objects to SVGs.",
+  "homepage": "https://github.com/wounded-pixels/svg-bindings/blob/master/project/README.md",
+  "keywords": [
+    "typescript",
+    "svg",
+    "svg-bindings"
+  ],
+  "version": "0.1.0",
+  "private": false,
+  "main": "dist/svg-bindings.js",
+  "module": "dist/svg-bindings.es.js",
+  "browser": "dist/svg-bindings.vanilla.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/svg-bindings.d.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "11.11.3",
+    "moment": "^2.24.0"
+  },
+  "scripts": {
+    "test": "jest --watch ./src/lib",
+    "coverage": "jest --coverage --watch  ./src/lib",
+    "build": "rollup -c && tsc -p ./tsconfig-typings.json",
+    "dev": "watch 'npm run build' src"
+  },
+  "eslintConfig": {},
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@types/jest": "^24.0.11",
+    "husky": "^2.1.0",
+    "jest": "^24.8.0",
+    "onchange": "^5.2.0",
+    "prettier": "^1.17.0",
+    "pretty-quick": "^1.10.0",
+    "rollup": "^1.13.1",
+    "rollup-plugin-tsc": "^1.1.15",
+    "rollup-plugin-typescript": "^1.0.1",
+    "ts-jest": "^24.0.2",
+    "tslib": "^1.9.3",
+    "typescript": "3.3.3333",
+    "watch": "^1.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx pretty-quick --staged && npm ci && jest --ci ./src/lib",
+      "pre-push": "jest --ci ./src/lib"
+    }
+  }
+}
