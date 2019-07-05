@@ -1,7 +1,7 @@
 import { KeyFunction, NumberProducer, StringProducer } from './Types';
 
 export class Circles {
-  private readonly parent: HTMLElement;
+  private readonly parent: SVGSVGElement;
   private readonly keyFunction: KeyFunction;
   private readonly viewMap: { [key: string]: Element };
   private cxProducer: NumberProducer = 0;
@@ -11,7 +11,7 @@ export class Circles {
   private strokeProducer: StringProducer = 'none';
   private strokeWidthProducer: NumberProducer = 0;
 
-  constructor(parent: HTMLElement, keyFunction: KeyFunction) {
+  constructor(parent: SVGSVGElement, keyFunction: KeyFunction) {
     this.parent = parent;
     this.keyFunction = keyFunction;
 
