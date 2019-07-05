@@ -18,8 +18,11 @@ storiesOf("Circles", module).add("basic construction", () => {
     .strokeWidth(0.5);
   circles.update([{ id: 1, x: 10, y: 10 }, { id: 2, x: 90, y: 10 }]);
   setTimeout(() => {
-    circles.update([{ id: 1, x: 50, y: 10 }, { id: 2, x: 60, y: 10 }]);
+    circles.update([{ id: 2, x: 60, y: 10 }]);
   }, 500);
+  setTimeout(() => {
+    circles.update([{ id: 1, x: 40, y: 10 }, { id: 2, x: 60, y: 10 }]);
+  }, 1000);
 
   parentDiv.appendChild(svg);
 

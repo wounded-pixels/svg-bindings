@@ -65,6 +65,7 @@ export class Circles {
 
     Object.keys(leaving).forEach(key => {
       this.removeView(key);
+      delete this.viewMap[key];
     });
   }
 
