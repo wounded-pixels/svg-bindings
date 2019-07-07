@@ -12,8 +12,8 @@ export class TranslationProducer implements TransformProducer {
   }
 
   getTransform(model: any): string {
-    const xValue = produceNumber(this.xProducer, model);
-    const yValue = produceNumber(this.yProducer, model);
+    const xValue = '' + produceNumber(this.xProducer, model);
+    const yValue = '' + produceNumber(this.yProducer, model);
 
     return `translate(${xValue}, ${yValue})`;
   }

@@ -6,14 +6,22 @@ import { TransformProducer } from '../transform-producers/TransformProducer';
  * @param producer
  * @param model
  */
-export function produceNumber(producer: NumberProducer, model: any): string {
-  const value: number =
-    typeof producer === 'function' ? producer(model) : producer;
-  return '' + value;
+export function produceNumber(producer: NumberProducer, model: any): number {
+  return typeof producer === 'function' ? producer(model) : producer;
 }
 
-export function produceString(producer: StringProducer, model: any): string {
-  return typeof producer === 'function' ? producer(model) : producer;
+export function updateAttribute(
+  view: SVGElement,
+  attribute: string,
+  producer: NumberProducer | StringProducer | undefined,
+  model: any
+) {
+  if (producer === undefined) {
+    return;
+  }
+  const value: number | string =
+    typeof producer === 'function' ? producer(model) : producer;
+  view.setAttribute(attribute, '' + value);
 }
 
 /**
@@ -74,25 +82,15 @@ export abstract class Bindings {
   protected abstract createView(model: any): SVGElement;
 
   protected updateView(model: any, viewElement: SVGElement): void {
-    this.fillProducer !== undefined &&
-      viewElement.setAttribute('fill', produceString(this.fillProducer, model));
-    this.opacityProducer !== undefined &&
-      viewElement.setAttribute(
-        'opacity',
-        produceNumber(this.opacityProducer, model)
-      );
-
-    this.strokeProducer !== undefined &&
-      viewElement.setAttribute(
-        'stroke',
-        produceString(this.strokeProducer, model)
-      );
-
-    this.strokeWidthProducer !== undefined &&
-      viewElement.setAttribute(
-        'stroke-width',
-        produceNumber(this.strokeWidthProducer, model)
-      );
+    updateAttribute(viewElement, 'fill', this.fillProducer, model);
+    updateAttribute(viewElement, 'opacity', this.opacityProducer, model);
+    updateAttribute(viewElement, 'stroke', this.strokeProducer, model);
+    updateAttribute(
+      viewElement,
+      'stroke-width',
+      this.strokeWidthProducer,
+      model
+    );
 
     const transformFragments = this.transformProducers
       .map(producer => producer.getTransform(model))
