@@ -14,27 +14,30 @@
     ></svg>
 
     <h1>hand coded</h1>
-    <svg id="handcoded" viewBox="0 0 100 100">
-      <circle cx="10" cy="10" r="5" fill="blue"></circle>
-      <circle cx="50" cy="50" r="5" fill="blue"></circle>
-    </svg>
-
     <script>
-      const { Circles } = SvgBindings;
+      const { Circles, TranslationProducer } = SvgBindings;
       const mountPoint = document.querySelector("#mount-circles");
       const circles = new Circles(mountPoint, model => model.id);
       circles
         .cx(m => m.x)
         .cy(m => m.y)
-        .r(m => m.id * 5)
+        .r(m => Math.min(m.id / 50, 7))
         .fill(m => (m.id % 2 ? "red" : "blue"))
+        .opacity(0.3)
         .stroke("black")
-        .strokeWidth(0.5);
+        .strokeWidth(0.1)
+        .addTransform(new TranslationProducer(m => (m.id % 2 ? 50 : 0), 0));
 
-      circles.update([{ id: 1, x: 10, y: 10 }, { id: 2, x: 50, y: 50 }]);
-      setTimeout(() => {
-        circles.update([{ id: 1, x: 30, y: 10 }]);
-      }, 1000);
+      const models = [];
+      let id = 0;
+      setInterval(() => {
+        if (Math.random() > 0.5) {
+          id++;
+          models.push({ id, x: Math.random() * 50, y: Math.random() * 50 });
+        }
+
+        circles.update(models.filter(m => Math.random() > 0.1));
+      }, 200);
     </script>
   </body>
 </html>

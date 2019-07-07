@@ -1,27 +1,37 @@
-import { document, console } from "global";
-import { storiesOf } from "@storybook/html";
-import { Circles } from "../../project/dist/svg-bindings";
+import { document } from 'global';
+import { storiesOf } from '@storybook/html';
+import { Circles, TranslationProducer } from '../../project/dist/svg-bindings';
 
-storiesOf("Circles", module).add("basic construction", () => {
-  const parentDiv = document.createElement("div");
+storiesOf('Circles', module).add('basic construction', () => {
+  const parentDiv = document.createElement('div');
 
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("viewBox", "0 0 100 100");
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 100 100');
 
   const circles = new Circles(svg, model => model.id);
   circles
-    .cx(m => m.x)
-    .cy(m => m.y)
-    .r(m => m.id * 5)
-    .fill(m => (m.id % 2 ? "red" : "blue"))
-    .stroke("black")
-    .strokeWidth(0.5);
-  circles.update([{ id: 1, x: 10, y: 10 }, { id: 2, x: 90, y: 10 }]);
+    .cx(m => (50 * m.height) / 90)
+    .cy(m => 50 - (50 * m.weight) / 270)
+    .r(2)
+    .fill(m => (m.gender === 'm' ? 'red' : 'blue'))
+    .opacity(0.5)
+    .stroke('black')
+    .strokeWidth(0.5)
+    .addTransform(new TranslationProducer(m => (m.gender === 'm' ? 50 : 0), 0));
+
+  const fred = { id: 1, height: 72, weight: 205, gender: 'm' };
+  const barney = { id: 2, height: 69, weight: 215, gender: 'm' };
+  const wilma = { id: 3, height: 61, weight: 130, gender: 'f' };
+  const betty = { id: 4, height: 63, weight: 105, gender: 'f' };
+
+  circles.update([fred, barney]);
+
   setTimeout(() => {
-    circles.update([{ id: 2, x: 60, y: 10 }]);
+    circles.update([wilma, betty]);
   }, 500);
+
   setTimeout(() => {
-    circles.update([{ id: 1, x: 40, y: 10 }, { id: 2, x: 60, y: 10 }]);
+    circles.update([fred, barney, wilma, betty]);
   }, 1000);
 
   parentDiv.appendChild(svg);
