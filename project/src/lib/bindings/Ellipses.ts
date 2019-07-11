@@ -41,7 +41,7 @@ export class Ellipses extends Bindings {
     return this.parent.appendChild(ellipse);
   }
 
-  updateView(model: any, ellipse: SVGElement) {
+  protected updateView(model: any, ellipse: SVGElement) {
     super.updateView(model, ellipse);
     updateAttribute(ellipse, 'cx', this.cxProducer, model);
     updateAttribute(ellipse, 'cy', this.cyProducer, model);

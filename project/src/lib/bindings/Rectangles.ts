@@ -56,7 +56,7 @@ export class Rectangles extends Bindings {
     return this.parent.appendChild(rect);
   }
 
-  updateView(model: any, rect: SVGElement) {
+  protected updateView(model: any, rect: SVGElement) {
     super.updateView(model, rect);
 
     if (this.centerProducers.length === 0) {

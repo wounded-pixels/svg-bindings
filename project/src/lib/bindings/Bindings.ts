@@ -121,5 +121,6 @@ export abstract class Bindings {
 
   addTransform(transformProducer: TransformProducer) {
     this.transformProducers.push(transformProducer);
+    return this;
   }
 }

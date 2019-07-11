@@ -35,7 +35,7 @@ export class Circles extends Bindings {
     return this.parent.appendChild(circle);
   }
 
-  updateView(model: any, circle: SVGElement) {
+  protected updateView(model: any, circle: SVGElement) {
     super.updateView(model, circle);
     updateAttribute(circle, 'cx', this.cxProducer, model);
     updateAttribute(circle, 'cy', this.cyProducer, model);
