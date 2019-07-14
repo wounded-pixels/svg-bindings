@@ -25,7 +25,7 @@ export class Circles extends Bindings {
     return this;
   }
 
-  createView(model: any) {
+  protected createView(model: any) {
     const circle = document.createElementNS(
       'http://www.w3.org/2000/svg',
       'circle'

@@ -1,4 +1,9 @@
-import { KeyFunction, NumberProducer, StringProducer } from './Types';
+import {
+  KeyFunction,
+  NumberArrayProducer,
+  NumberProducer,
+  StringProducer,
+} from './Types';
 import { TransformProducer } from '../transform-producers/TransformProducer';
 
 /**
@@ -13,13 +18,13 @@ export function produceNumber(producer: NumberProducer, model: any): number {
 export function updateAttribute(
   view: SVGElement,
   attribute: string,
-  producer: NumberProducer | StringProducer | undefined,
+  producer: NumberProducer | NumberArrayProducer | StringProducer | undefined,
   model: any
 ) {
   if (producer === undefined) {
     return;
   }
-  const value: number | string =
+  const value: number | number[] | string =
     typeof producer === 'function' ? producer(model) : producer;
   view.setAttribute(attribute, '' + value);
 }

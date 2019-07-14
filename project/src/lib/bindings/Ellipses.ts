@@ -31,7 +31,7 @@ export class Ellipses extends Bindings {
     return this;
   }
 
-  createView(model: any) {
+  protected createView(model: any) {
     const ellipse = document.createElementNS(
       'http://www.w3.org/2000/svg',
       'ellipse'

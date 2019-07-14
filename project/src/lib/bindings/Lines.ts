@@ -31,7 +31,7 @@ export class Lines extends Bindings {
     return this;
   }
 
-  createView(model: any) {
+  protected createView(model: any) {
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     this.updateView(model, line);
 

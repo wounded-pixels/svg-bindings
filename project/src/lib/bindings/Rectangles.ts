@@ -49,7 +49,7 @@ export class Rectangles extends Bindings {
     return this;
   }
 
-  createView(model: any) {
+  protected createView(model: any) {
     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     this.updateView(model, rect);
 

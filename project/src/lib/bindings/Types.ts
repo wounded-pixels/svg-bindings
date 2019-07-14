@@ -5,3 +5,6 @@ export type NumberProducer = NumberFunction | number;
 
 export type StringFunction = (model: any) => string;
 export type StringProducer = StringFunction | string;
+
+export type NumberArrayFunction = (model: any) => number[];
+export type NumberArrayProducer = NumberArrayFunction | number[];
