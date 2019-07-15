@@ -1,5 +1,5 @@
 import { KeyFunction, NumberProducer, StringProducer } from './Types';
-import { Bindings, produceNumber, produceString } from './Bindings';
+import { Bindings, updateAttribute } from './Bindings';
 
 export class Circles extends Bindings {
   private cxProducer?: NumberProducer;
@@ -25,7 +25,7 @@ export class Circles extends Bindings {
     return this;
   }
 
-  createView(model: any) {
+  protected createView(model: any) {
     const circle = document.createElementNS(
       'http://www.w3.org/2000/svg',
       'circle'
@@ -35,13 +35,10 @@ export class Circles extends Bindings {
     return this.parent.appendChild(circle);
   }
 
-  updateView(model: any, circle: SVGElement) {
+  protected updateView(model: any, circle: SVGElement) {
     super.updateView(model, circle);
-    this.cxProducer !== undefined &&
-      circle.setAttribute('cx', produceNumber(this.cxProducer, model));
-    this.cyProducer !== undefined &&
-      circle.setAttribute('cy', produceNumber(this.cyProducer, model));
-    this.rProducer !== undefined &&
-      circle.setAttribute('r', produceNumber(this.rProducer, model));
+    updateAttribute(circle, 'cx', this.cxProducer, model);
+    updateAttribute(circle, 'cy', this.cyProducer, model);
+    updateAttribute(circle, 'r', this.rProducer, model);
   }
 }
