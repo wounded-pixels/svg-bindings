@@ -1,5 +1,6 @@
 import { KeyFunction, NumberProducer } from './Types';
 import { Bindings, produceNumber, updateAttribute } from './Bindings';
+import { createSvgElement } from '../util/svg-element';
 
 export class Rectangles extends Bindings {
   private xProducer?: NumberProducer;
@@ -50,10 +51,9 @@ export class Rectangles extends Bindings {
   }
 
   protected createView(model: any) {
-    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    const rect = createSvgElement('rect', {}, this.parent);
     this.updateView(model, rect);
-
-    return this.parent.appendChild(rect);
+    return rect;
   }
 
   protected updateView(model: any, rect: SVGElement) {

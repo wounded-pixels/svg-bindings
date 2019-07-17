@@ -1,5 +1,6 @@
 import { KeyFunction, NumberProducer, StringProducer } from './Types';
 import { Bindings, updateAttribute } from './Bindings';
+import { createSvgElement } from '../util/svg-element';
 
 export class Circles extends Bindings {
   private cxProducer?: NumberProducer;
@@ -26,13 +27,9 @@ export class Circles extends Bindings {
   }
 
   protected createView(model: any) {
-    const circle = document.createElementNS(
-      'http://www.w3.org/2000/svg',
-      'circle'
-    );
+    const circle = createSvgElement('circle', {}, this.parent);
     this.updateView(model, circle);
-
-    return this.parent.appendChild(circle);
+    return circle;
   }
 
   protected updateView(model: any, circle: SVGElement) {
