@@ -1,5 +1,6 @@
 import { Bindings, updateAttribute } from './Bindings';
 import { KeyFunction, StringProducer } from './Types';
+import { createSvgElement } from '../util/svg-element';
 
 export class Paths extends Bindings {
   dProducer?: StringProducer;
@@ -14,10 +15,9 @@ export class Paths extends Bindings {
   }
 
   protected createView(model: any) {
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const path = createSvgElement('path', {}, this.parent);
     this.updateView(model, path);
-
-    return this.parent.appendChild(path);
+    return path;
   }
 
   protected updateView(model: any, path: SVGElement) {

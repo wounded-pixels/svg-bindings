@@ -1,5 +1,6 @@
 import { KeyFunction, NumberProducer, StringProducer } from './Types';
 import { Bindings, updateAttribute } from './Bindings';
+import { createSvgElement } from '../util/svg-element';
 
 export class Ellipses extends Bindings {
   private cxProducer?: NumberProducer;
@@ -32,13 +33,9 @@ export class Ellipses extends Bindings {
   }
 
   protected createView(model: any) {
-    const ellipse = document.createElementNS(
-      'http://www.w3.org/2000/svg',
-      'ellipse'
-    );
+    const ellipse = createSvgElement('ellipse', {}, this.parent);
     this.updateView(model, ellipse);
-
-    return this.parent.appendChild(ellipse);
+    return ellipse;
   }
 
   protected updateView(model: any, ellipse: SVGElement) {

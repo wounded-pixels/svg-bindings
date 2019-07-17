@@ -1,5 +1,6 @@
 import { KeyFunction, NumberProducer } from './Types';
 import { Bindings, updateAttribute } from './Bindings';
+import { createSvgElement } from '../util/svg-element';
 
 export class Lines extends Bindings {
   private x1Producer?: NumberProducer;
@@ -32,10 +33,9 @@ export class Lines extends Bindings {
   }
 
   protected createView(model: any) {
-    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    const line = createSvgElement('line', {}, this.parent);
     this.updateView(model, line);
-
-    return this.parent.appendChild(line);
+    return line;
   }
 
   protected updateView(model: any, line: SVGElement) {

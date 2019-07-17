@@ -1,5 +1,6 @@
 import { Bindings, updateAttribute } from './Bindings';
 import { KeyFunction, NumberArrayProducer } from './Types';
+import { createSvgElement } from '../util/svg-element';
 
 export class Polylines extends Bindings {
   pointsProducer?: NumberArrayProducer;
@@ -14,13 +15,9 @@ export class Polylines extends Bindings {
   }
 
   protected createView(model: any) {
-    const polyline = document.createElementNS(
-      'http://www.w3.org/2000/svg',
-      'polyline'
-    );
+    const polyline = createSvgElement('polyline', {}, this.parent);
     this.updateView(model, polyline);
-
-    return this.parent.appendChild(polyline);
+    return polyline;
   }
 
   protected updateView(model: any, polyline: SVGElement) {

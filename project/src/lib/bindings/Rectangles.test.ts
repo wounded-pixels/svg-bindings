@@ -1,9 +1,11 @@
 import { Rectangles } from './Rectangles';
 import { TranslationProducer } from '../transform-producers/TranslationProducer';
+import { createSvgElement } from '../util/svg-element';
 
 test('basic construction', () => {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
+  const svg = createSvgElement('svg', {
+    viewBox: '0 0 100 100',
+  });
 
   const rectangles = new Rectangles(svg, model => model.id);
   rectangles
@@ -29,8 +31,9 @@ test('basic construction', () => {
 });
 
 test('minimal construction', () => {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
+  const svg = createSvgElement('svg', {
+    viewBox: '0 0 100 100',
+  });
 
   const rectangles = new Rectangles(svg, model => model.id);
 
@@ -41,8 +44,9 @@ test('minimal construction', () => {
 });
 
 test('centered', () => {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
+  const svg = createSvgElement('svg', {
+    viewBox: '0 0 100 100',
+  });
 
   const rectangles = new Rectangles(svg, model => model.id);
   rectangles
@@ -58,8 +62,9 @@ test('centered', () => {
 });
 
 test('centered, missing width and height', () => {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
+  const svg = createSvgElement('svg', {
+    viewBox: '0 0 100 100',
+  });
 
   const rectangles = new Rectangles(svg, model => model.id);
   rectangles.center(m => m.x, m => m.y).fill('red');
