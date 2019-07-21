@@ -1,9 +1,6 @@
 import { document } from 'global';
 import { storiesOf } from '@storybook/html';
-import {
-  Polylines,
-  TranslationProducer,
-} from '../../project/dist/svg-bindings';
+import { Polylines, TranslationProducer } from '@wounded-pixels/svg-bindings';
 
 storiesOf('Polylines', module).add('basic construction', () => {
   const parentDiv = document.createElement('div');

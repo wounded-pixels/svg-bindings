@@ -6,15 +6,15 @@ export default {
   input: './src/svg-bindings.ts',
   output: [
     {
-      file: pkg.main,
+      file: 'dist/svg-bindings.js',
       format: 'cjs',
     },
     {
-      file: pkg.module,
+      file: 'dist/svg-bindings.es.js',
       format: 'es',
     },
     {
-      file: pkg.browser,
+      file: 'dist/svg-bindings.vanilla.js',
       format: 'iife',
       name: 'SvgBindings', // the global which can be used in a browser
     },
