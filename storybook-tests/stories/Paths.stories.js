@@ -1,6 +1,6 @@
 import { document } from 'global';
 import { storiesOf } from '@storybook/html';
-import { Paths } from '../../project/dist/svg-bindings';
+import { Paths } from '@wounded-pixels/svg-bindings';
 
 storiesOf('Paths', module).add('basic construction', () => {
   const parentDiv = document.createElement('div');

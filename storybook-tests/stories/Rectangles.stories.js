@@ -1,9 +1,6 @@
 import { document } from 'global';
 import { storiesOf } from '@storybook/html';
-import {
-  Rectangles,
-  TranslationProducer,
-} from '../../project/dist/svg-bindings';
+import { Rectangles, TranslationProducer } from '@wounded-pixels/svg-bindings';
 
 const data = [{ id: 1, x: 10, y: 10 }, { id: 2, x: 20, y: 20 }];
 

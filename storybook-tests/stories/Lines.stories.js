@@ -1,6 +1,6 @@
 import { document } from 'global';
 import { storiesOf } from '@storybook/html';
-import { Lines, TranslationProducer } from '../../project/dist/svg-bindings';
+import { Lines, TranslationProducer } from '@wounded-pixels/svg-bindings';
 
 storiesOf('Lines', module).add('basic construction', () => {
   const parentDiv = document.createElement('div');

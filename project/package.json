@@ -7,11 +7,11 @@
     "svg",
     "svg-bindings"
   ],
-  "version": "0.1.0",
+  "version": "0.1.4",
   "private": false,
   "main": "dist/svg-bindings.js",
   "module": "dist/svg-bindings.es.js",
-  "browser": "dist/svg-bindings.vanilla.js",
+  "browser": "dist/svg-bindings.es.js",
   "files": [
     "dist"
   ],
