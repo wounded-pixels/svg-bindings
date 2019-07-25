@@ -1,1 +1,0 @@
-../../project/dist/svg-bindings.vanilla.js
