@@ -1,12 +1,11 @@
 import { document } from 'global';
 import { storiesOf } from '@storybook/html';
-import { Paths } from '@wounded-pixels/svg-bindings';
+import { createSvgElement, Paths } from '@wounded-pixels/svg-bindings';
 
 storiesOf('Paths', module).add('basic construction', () => {
   const parentDiv = document.createElement('div');
 
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
+  const svg = createSvgElement('svg', { viewBox: '0 0 100 100' }, parentDiv);
 
   const models = [
     {
@@ -24,7 +23,6 @@ storiesOf('Paths', module).add('basic construction', () => {
     .d(m => m.path);
 
   paths.update(models);
-  parentDiv.appendChild(svg);
 
   return parentDiv;
 });

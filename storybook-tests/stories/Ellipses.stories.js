@@ -1,12 +1,14 @@
 import { document } from 'global';
 import { storiesOf } from '@storybook/html';
-import { Circles, Ellipses } from '@wounded-pixels/svg-bindings';
+import {
+  Circles,
+  createSvgElement,
+  Ellipses,
+} from '@wounded-pixels/svg-bindings';
 
 storiesOf('Ellipses', module).add('basic construction', () => {
   const parentDiv = document.createElement('div');
-
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
+  const svg = createSvgElement('svg', { viewBox: '0 0 100 100' }, parentDiv);
 
   const dominantAxis = 10;
 
@@ -35,8 +37,6 @@ storiesOf('Ellipses', module).add('basic construction', () => {
     .strokeWidth(0.5);
 
   ellipses.update([{ id: 1, x: 25, y: 25 }, { id: 2, x: 25, y: 25 }]);
-
-  parentDiv.appendChild(svg);
 
   return parentDiv;
 });

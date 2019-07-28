@@ -1,12 +1,14 @@
 import { document } from 'global';
 import { storiesOf } from '@storybook/html';
-import { Polylines, TranslationProducer } from '@wounded-pixels/svg-bindings';
+import {
+  createSvgElement,
+  Polylines,
+  TranslationProducer,
+} from '@wounded-pixels/svg-bindings';
 
 storiesOf('Polylines', module).add('basic construction', () => {
   const parentDiv = document.createElement('div');
-
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
+  const svg = createSvgElement('svg', { viewBox: '0 0 100 100' }, parentDiv);
 
   const points = [10, 10, 20, 50, 30, 10];
   const models = [
@@ -24,8 +26,6 @@ storiesOf('Polylines', module).add('basic construction', () => {
     .points(m => m.points);
 
   polylines.update(models);
-
-  parentDiv.appendChild(svg);
 
   return parentDiv;
 });

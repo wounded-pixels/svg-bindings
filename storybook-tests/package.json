@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@wounded-pixels/svg-bindings": "^0.1.4"
+    "@wounded-pixels/svg-bindings": "^0.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
