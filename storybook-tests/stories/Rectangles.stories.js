@@ -1,15 +1,17 @@
 import { document } from 'global';
 import { storiesOf } from '@storybook/html';
-import { Rectangles, TranslationProducer } from '@wounded-pixels/svg-bindings';
+import {
+  createSvgElement,
+  Rectangles,
+  TranslationProducer,
+} from '@wounded-pixels/svg-bindings';
 
 const data = [{ id: 1, x: 10, y: 10 }, { id: 2, x: 20, y: 20 }];
 
 storiesOf('Rectangles', module)
   .add('basic construction', () => {
     const parentDiv = document.createElement('div');
-
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('viewBox', '0 0 100 100');
+    const svg = createSvgElement('svg', { viewBox: '0 0 100 100' }, parentDiv);
 
     const rectangles = new Rectangles(svg, model => model.id);
     rectangles
@@ -35,15 +37,11 @@ storiesOf('Rectangles', module)
       .strokeWidth(0.5);
     centered.update(data);
 
-    parentDiv.appendChild(svg);
-
     return parentDiv;
   })
   .add('rounded corners', () => {
     const parentDiv = document.createElement('div');
-
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('viewBox', '0 0 100 100');
+    const svg = createSvgElement('svg', { viewBox: '0 0 100 100' }, parentDiv);
 
     const rectangles = new Rectangles(svg, model => model.id);
     rectangles
@@ -58,8 +56,6 @@ storiesOf('Rectangles', module)
       .xRadius(2)
       .yRadius(2);
     rectangles.update(data);
-
-    parentDiv.appendChild(svg);
 
     return parentDiv;
   });

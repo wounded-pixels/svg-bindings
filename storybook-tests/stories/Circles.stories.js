@@ -1,12 +1,15 @@
 import { document } from 'global';
 import { storiesOf } from '@storybook/html';
-import { Circles, TranslationProducer } from '@wounded-pixels/svg-bindings';
+import {
+  Circles,
+  TranslationProducer,
+  createSvgElement,
+} from '@wounded-pixels/svg-bindings';
 
 storiesOf('Circles', module).add('basic construction', () => {
   const parentDiv = document.createElement('div');
 
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
+  const svg = createSvgElement('svg', { viewBox: '0 0 100 100' }, parentDiv);
 
   const circles = new Circles(svg, model => model.id);
   circles
@@ -33,8 +36,6 @@ storiesOf('Circles', module).add('basic construction', () => {
   setTimeout(() => {
     circles.update([fred, barney, wilma, betty]);
   }, 1000);
-
-  parentDiv.appendChild(svg);
 
   return parentDiv;
 });

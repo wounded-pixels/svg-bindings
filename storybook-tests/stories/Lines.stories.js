@@ -1,12 +1,14 @@
 import { document } from 'global';
 import { storiesOf } from '@storybook/html';
-import { Lines, TranslationProducer } from '@wounded-pixels/svg-bindings';
+import {
+  createSvgElement,
+  Lines,
+  TranslationProducer,
+} from '@wounded-pixels/svg-bindings';
 
 storiesOf('Lines', module).add('basic construction', () => {
   const parentDiv = document.createElement('div');
-
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
+  const svg = createSvgElement('svg', { viewBox: '0 0 100 100' }, parentDiv);
 
   const stepByTen = m => m.id * 10;
   const hLines = new Lines(svg, model => model.id)
@@ -32,8 +34,6 @@ storiesOf('Lines', module).add('basic construction', () => {
   });
   hLines.update(values);
   vLines.update(values);
-
-  parentDiv.appendChild(svg);
 
   return parentDiv;
 });

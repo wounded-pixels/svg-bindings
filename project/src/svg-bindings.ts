@@ -1,3 +1,5 @@
+export { createSvgElement } from './lib/util/svg-element';
+
 export * from './lib/bindings/Types';
 
 export { Circles } from './lib/bindings/Circles';
