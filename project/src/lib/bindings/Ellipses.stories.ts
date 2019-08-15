@@ -1,15 +1,16 @@
-import { document } from 'global';
 import { storiesOf } from '@storybook/html';
-import {
-  Circles,
-  createSvgElement,
-  Ellipses,
-} from '@wounded-pixels/svg-bindings';
+import { Circles, Ellipses, createSvgElement } from '../../svg-bindings';
 
-storiesOf('Ellipses', module).add('basic construction', () => {
-  const parentDiv = document.createElement('div');
-  const svg = createSvgElement('svg', { viewBox: '0 0 100 100' }, parentDiv);
+export const results: any = {};
+results.defaults = document.createElement('div');
+results.basic = document.createElement('div');
 
+function createBasic() {
+  const svg = createSvgElement(
+    'svg',
+    { viewBox: '0 0 100 100' },
+    results.basic
+  );
   const dominantAxis = 10;
 
   const circles = new Circles(svg, model => model.id);
@@ -37,6 +38,21 @@ storiesOf('Ellipses', module).add('basic construction', () => {
     .strokeWidth(0.5);
 
   ellipses.update([{ id: 1, x: 25, y: 25 }, { id: 2, x: 25, y: 25 }]);
+}
 
-  return parentDiv;
-});
+function createDefaults() {
+  const svg = createSvgElement(
+    'svg',
+    { viewBox: '0 0 100 100' },
+    results.defaults
+  );
+  const ellipses = new Ellipses(svg, model => model.id);
+  ellipses.update([{ id: 1, x: 25, y: 25 }, { id: 2, x: 25, y: 25 }]);
+}
+
+createBasic();
+createDefaults();
+
+storiesOf('Ellipses', module)
+  .add('defaults', () => results.defaults)
+  .add('basic construction', () => results.basic);

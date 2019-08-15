@@ -1,23 +1,13 @@
-import { Ellipses } from './Ellipses';
-import { createSvgElement } from '../util/svg-element';
+import { results } from './Ellipses.stories';
 
 test('basic construction', () => {
-  const svg = createSvgElement('svg', {
-    viewBox: '0 0 100 100',
-  });
+  expect(results.basic.outerHTML).toMatchInlineSnapshot(
+    `"<div><svg viewBox=\\"0 0 100 100\\"><circle fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" r=\\"10\\"></circle><circle fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" r=\\"0.5\\"></circle><ellipse fill=\\"none\\" stroke=\\"blue\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" rx=\\"5\\" ry=\\"10\\"></ellipse><ellipse fill=\\"none\\" stroke=\\"red\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" rx=\\"10\\" ry=\\"5\\"></ellipse></svg></div>"`
+  );
+});
 
-  const ellipses = new Ellipses(svg, model => model.id);
-  ellipses
-    .cx(m => m.x)
-    .cy(m => m.y)
-    .rx(20)
-    .ry(10)
-    .stroke('black')
-    .strokeWidth(0.5);
-
-  ellipses.update([{ id: 1, x: 25, y: 25 }]);
-
-  expect(svg.outerHTML).toMatchInlineSnapshot(
-    `"<svg viewBox=\\"0 0 100 100\\"><ellipse stroke=\\"black\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" rx=\\"20\\" ry=\\"10\\"></ellipse></svg>"`
+test('defaults', () => {
+  expect(results.defaults.outerHTML).toMatchInlineSnapshot(
+    `"<div><svg viewBox=\\"0 0 100 100\\"><ellipse></ellipse><ellipse></ellipse></svg></div>"`
   );
 });

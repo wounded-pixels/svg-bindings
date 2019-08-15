@@ -18,13 +18,17 @@
   "types": "dist/svg-bindings.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "11.11.3"
+    "@types/node": "11.11.3",
+    "@types/storybook__html": "^5.0.2",
+    "@wounded-pixels/svg-bindings": "^0.2.0"
   },
   "scripts": {
     "test": "jest --watch ./src/lib",
     "coverage": "jest --coverage --watch  ./src/lib",
     "build": "rollup -c && tsc -p ./tsconfig-typings.json",
-    "dev": "watch 'npm run build' src"
+    "dev": "watch 'npm run build' src",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "eslintConfig": {},
   "browserslist": [
@@ -34,7 +38,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@storybook/html": "^5.1.9",
     "@types/jest": "^24.0.11",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.6",
     "husky": "^2.1.0",
     "jest": "^24.8.0",
     "onchange": "^5.2.0",
