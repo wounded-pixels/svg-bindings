@@ -1,24 +1,7 @@
-import { Lines } from './Lines';
-import { createSvgElement } from '../util/svg-element';
+import { results } from './Lines.stories';
 
-test('basic construction', () => {
-  const svg = createSvgElement('svg', {
-    viewBox: '0 0 100 100',
-  });
-
-  const rows = [{ id: 1, row: 1 }];
-  const lines = new Lines(svg, model => model.id);
-  lines
-    .x1(0)
-    .y1(m => m.row * 10)
-    .x2(100)
-    .y2(m => m.row * 10)
-    .stroke('black')
-    .strokeWidth(0.5);
-
-  lines.update(rows);
-
-  expect(svg.outerHTML).toMatchInlineSnapshot(
-    `"<svg viewBox=\\"0 0 100 100\\"><line stroke=\\"black\\" stroke-width=\\"0.5\\" x1=\\"0\\" y1=\\"10\\" x2=\\"100\\" y2=\\"10\\"></line></svg>"`
+test('grid', () => {
+  expect(results.grid.outerHTML).toMatchInlineSnapshot(
+    `"<div><svg viewBox=\\"0 0 100 100\\"><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"0\\" y1=\\"0\\" x2=\\"90\\" y2=\\"0\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"0\\" y1=\\"10\\" x2=\\"90\\" y2=\\"10\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"0\\" y1=\\"20\\" x2=\\"90\\" y2=\\"20\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"0\\" y1=\\"30\\" x2=\\"90\\" y2=\\"30\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"0\\" y1=\\"40\\" x2=\\"90\\" y2=\\"40\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"0\\" y1=\\"50\\" x2=\\"90\\" y2=\\"50\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"0\\" y1=\\"60\\" x2=\\"90\\" y2=\\"60\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"0\\" y1=\\"70\\" x2=\\"90\\" y2=\\"70\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"0\\" y1=\\"80\\" x2=\\"90\\" y2=\\"80\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"0\\" y1=\\"90\\" x2=\\"90\\" y2=\\"90\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"0\\" y1=\\"0\\" x2=\\"0\\" y2=\\"90\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"10\\" y1=\\"0\\" x2=\\"10\\" y2=\\"90\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"20\\" y1=\\"0\\" x2=\\"20\\" y2=\\"90\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"30\\" y1=\\"0\\" x2=\\"30\\" y2=\\"90\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"40\\" y1=\\"0\\" x2=\\"40\\" y2=\\"90\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"50\\" y1=\\"0\\" x2=\\"50\\" y2=\\"90\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"60\\" y1=\\"0\\" x2=\\"60\\" y2=\\"90\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"70\\" y1=\\"0\\" x2=\\"70\\" y2=\\"90\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"80\\" y1=\\"0\\" x2=\\"80\\" y2=\\"90\\"></line><line stroke=\\"black\\" stroke-width=\\"0.5\\" transform=\\"translate(5, 5)\\" x1=\\"90\\" y1=\\"0\\" x2=\\"90\\" y2=\\"90\\"></line></svg></div>"`
   );
 });

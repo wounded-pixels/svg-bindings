@@ -1,15 +1,22 @@
-import { document } from 'global';
 import { storiesOf } from '@storybook/html';
 import {
   Circles,
-  TranslationProducer,
   createSvgElement,
-} from '@wounded-pixels/svg-bindings';
+  TranslationProducer,
+} from '../../svg-bindings';
 
-storiesOf('Circles', module).add('basic construction', () => {
-  const parentDiv = document.createElement('div');
+export const results: any = {};
+results.defaults = document.createElement('div');
+results.basic = document.createElement('div');
 
-  const svg = createSvgElement('svg', { viewBox: '0 0 100 100' }, parentDiv);
+function createBasic() {
+  const svg = createSvgElement(
+    'svg',
+    { viewBox: '0 0 100 100' },
+    results.basic
+  );
+  const group = createSvgElement('g');
+  svg.appendChild(group);
 
   const circles = new Circles(svg, model => model.id);
   circles
@@ -36,6 +43,22 @@ storiesOf('Circles', module).add('basic construction', () => {
   setTimeout(() => {
     circles.update([fred, barney, wilma, betty]);
   }, 1000);
+}
 
-  return parentDiv;
-});
+function createDefaults() {
+  const svg = createSvgElement(
+    'svg',
+    { viewBox: '0 0 100 100' },
+    results.defaults
+  );
+  const group = createSvgElement('g', { ignored: null }, svg);
+  const circles = new Circles(group, model => model.id);
+  circles.update([{ id: 1, x: 10, y: 10 }, { id: 2, x: 90, y: 10 }]);
+}
+
+createBasic();
+createDefaults();
+
+storiesOf('Circles', module)
+  .add('defaults', () => results.defaults)
+  .add('basic construction', () => results.basic);
