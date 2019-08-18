@@ -1,4 +1,4 @@
-export { createSvgElement } from './lib/util/svg-element';
+export { createResponsiveSvg, createSvgElement } from './lib/util/svg-element';
 
 export * from './lib/bindings/Types';
 
@@ -11,3 +11,5 @@ export { Rectangles } from './lib/bindings/Rectangles';
 export {
   TranslationProducer,
 } from './lib/transform-producers/TranslationProducer';
+
+export { createResizableDiv } from './lib/test-utils/containers';

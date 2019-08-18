@@ -33,7 +33,7 @@ export class Lines extends Bindings {
   }
 
   protected createView(model: any) {
-    const line = createSvgElement('line', {}, this.parent);
+    const line = createSvgElement('line', this.parent);
     this.updateView(model, line);
     return line;
   }

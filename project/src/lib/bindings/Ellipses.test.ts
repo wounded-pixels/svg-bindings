@@ -2,12 +2,12 @@ import { results } from './Ellipses.stories';
 
 test('basic construction', () => {
   expect(results.basic.outerHTML).toMatchInlineSnapshot(
-    `"<div><svg viewBox=\\"0 0 100 100\\"><circle fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" r=\\"10\\"></circle><circle fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" r=\\"0.5\\"></circle><ellipse fill=\\"none\\" stroke=\\"blue\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" rx=\\"5\\" ry=\\"10\\"></ellipse><ellipse fill=\\"none\\" stroke=\\"red\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" rx=\\"10\\" ry=\\"5\\"></ellipse></svg></div>"`
+    `"<div style=\\"min-width: 200px; min-height: 200px; width: 300px; height: 300px; max-width: 400px; max-height: 400px; border: 1px solid black; resize: both; overflow: hidden;\\"><svg viewBox=\\"0 0 50 50\\" preserveAspectRatio=\\"xMidYMid meet\\" style=\\"width: 100%; height: 100%; display: inline-block; overflow: hidden;\\"><ellipse fill=\\"none\\" stroke=\\"blue\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" rx=\\"5\\" ry=\\"10\\"></ellipse><ellipse fill=\\"none\\" stroke=\\"red\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" rx=\\"10\\" ry=\\"5\\"></ellipse></svg></div>"`
   );
 });
 
 test('defaults', () => {
   expect(results.defaults.outerHTML).toMatchInlineSnapshot(
-    `"<div><svg viewBox=\\"0 0 100 100\\"><ellipse></ellipse><ellipse></ellipse></svg></div>"`
+    `"<div style=\\"min-width: 200px; min-height: 200px; width: 300px; height: 300px; max-width: 400px; max-height: 400px; border: 1px solid black; resize: both; overflow: hidden;\\"><svg viewBox=\\"0 0 100 100\\" preserveAspectRatio=\\"xMidYMid meet\\" style=\\"width: 100%; height: 100%; display: inline-block; overflow: hidden;\\"><ellipse fill=\\"grey\\" stroke=\\"grey\\" stroke-width=\\"1\\" cx=\\"25\\" cy=\\"25\\" rx=\\"4\\" ry=\\"2\\"></ellipse><ellipse fill=\\"grey\\" stroke=\\"grey\\" stroke-width=\\"1\\" cx=\\"25\\" cy=\\"25\\" rx=\\"4\\" ry=\\"2\\"></ellipse></svg></div>"`
   );
 });

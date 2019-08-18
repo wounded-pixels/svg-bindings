@@ -1,52 +1,42 @@
 import { storiesOf } from '@storybook/html';
-import { Circles, Ellipses, createSvgElement } from '../../svg-bindings';
+import {
+  Ellipses,
+  createResizableDiv,
+  createResponsiveSvg,
+} from '../../svg-bindings';
 
 export const results: any = {};
-results.defaults = document.createElement('div');
-results.basic = document.createElement('div');
+results.defaults = createResizableDiv();
+results.basic = createResizableDiv();
+
+const models = [{ id: 1, x: 25, y: 25 }, { id: 2, x: 25, y: 25 }];
 
 function createBasic() {
-  const svg = createSvgElement(
-    'svg',
-    { viewBox: '0 0 100 100' },
-    results.basic
-  );
-  const dominantAxis = 10;
+  const svg = createResponsiveSvg(results.basic, {
+    x: 0,
+    y: 0,
+    width: 50,
+    height: 50,
+  });
 
-  const circles = new Circles(svg, model => model.id);
-  circles
-    .cx(m => m.x)
-    .cy(m => m.y)
-    .r(m => m.r)
-    .fill('none')
-    .stroke('black')
-    .strokeWidth(0.5);
-
-  circles.update([
-    { id: 1, x: 25, y: 25, r: dominantAxis },
-    { id: 2, x: 25, y: 25, r: 0.5 },
-  ]);
-
-  const ellipses = new Ellipses(svg, model => model.id);
+  const ellipses = new Ellipses(svg, m => m.id);
   ellipses
     .cx(m => m.x)
     .cy(m => m.y)
-    .rx(m => (m.id % 2 === 0 ? dominantAxis : dominantAxis / 2))
-    .ry(m => (m.id % 2 === 1 ? dominantAxis : dominantAxis / 2))
+    .rx(m => (m.id % 2 === 0 ? 10 : 5))
+    .ry(m => (m.id % 2 === 1 ? 10 : 5))
     .fill('none')
     .stroke(m => (m.id % 2 === 0 ? 'red' : 'blue'))
     .strokeWidth(0.5);
 
-  ellipses.update([{ id: 1, x: 25, y: 25 }, { id: 2, x: 25, y: 25 }]);
+  ellipses.update(models);
 }
 
 function createDefaults() {
-  const svg = createSvgElement(
-    'svg',
-    { viewBox: '0 0 100 100' },
-    results.defaults
-  );
-  const ellipses = new Ellipses(svg, model => model.id);
+  const svg = createResponsiveSvg(results.defaults);
+  const ellipses = new Ellipses(svg, model => model.id)
+    .cx(m => m.x)
+    .cy(m => m.y);
   ellipses.update([{ id: 1, x: 25, y: 25 }, { id: 2, x: 25, y: 25 }]);
 }
 

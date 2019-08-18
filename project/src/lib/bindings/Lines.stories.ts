@@ -1,16 +1,17 @@
 import { storiesOf } from '@storybook/html';
 import {
   Lines,
-  createSvgElement,
   TranslationProducer,
+  createResizableDiv,
+  createResponsiveSvg,
 } from '../../svg-bindings';
 
 export const results: any = {};
-results.defaults = document.createElement('div');
-results.grid = document.createElement('div');
+results.defaults = createResizableDiv();
+results.grid = createResizableDiv();
 
 function createGrid() {
-  const svg = createSvgElement('svg', { viewBox: '0 0 100 100' }, results.grid);
+  const svg = createResponsiveSvg(results.grid);
 
   const stepByTen = (m: { id: number }) => m.id * 10;
   const hLines = new Lines(svg, model => model.id)
@@ -39,14 +40,13 @@ function createGrid() {
 }
 
 function createDefaults() {
-  const svg = createSvgElement(
-    'svg',
-    { viewBox: '0 0 100 100' },
-    results.defaults
-  );
-
-  const lines = new Lines(svg, model => model.id);
-  lines.update([{ id: 1 }]);
+  const svg = createResponsiveSvg(results.defaults);
+  const lines = new Lines(svg, model => model.id)
+    .x1(10)
+    .y1(m => m.id * 10)
+    .x2(30)
+    .y2(m => m.id * 10 + 5);
+  lines.update([{ id: 1 }, { id: 2 }]);
 }
 
 createGrid();

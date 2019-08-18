@@ -51,7 +51,7 @@ export class Rectangles extends Bindings {
   }
 
   protected createView(model: any) {
-    const rect = createSvgElement('rect', {}, this.parent);
+    const rect = createSvgElement('rect', this.parent);
     this.updateView(model, rect);
     return rect;
   }

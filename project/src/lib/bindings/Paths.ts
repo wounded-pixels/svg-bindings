@@ -15,7 +15,7 @@ export class Paths extends Bindings {
   }
 
   protected createView(model: any) {
-    const path = createSvgElement('path', {}, this.parent);
+    const path = createSvgElement('path', this.parent);
     this.updateView(model, path);
     return path;
   }

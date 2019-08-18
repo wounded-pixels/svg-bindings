@@ -15,7 +15,7 @@ export class Polylines extends Bindings {
   }
 
   protected createView(model: any) {
-    const polyline = createSvgElement('polyline', {}, this.parent);
+    const polyline = createSvgElement('polyline', this.parent);
     this.updateView(model, polyline);
     return polyline;
   }
