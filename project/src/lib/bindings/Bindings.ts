@@ -46,10 +46,10 @@ export abstract class Bindings {
   private readonly keyFunction: KeyFunction;
   private readonly viewMap: { [key: string]: SVGElement };
 
-  private fillProducer?: StringProducer;
+  private fillProducer: StringProducer = 'grey';
   private opacityProducer?: NumberProducer;
-  private strokeProducer?: StringProducer;
-  private strokeWidthProducer?: NumberProducer;
+  private strokeProducer: StringProducer = 'grey';
+  private strokeWidthProducer: NumberProducer = 1;
   private transformProducers: TransformProducer[] = [];
 
   protected constructor(parent: SVGElement, keyFunction: KeyFunction) {

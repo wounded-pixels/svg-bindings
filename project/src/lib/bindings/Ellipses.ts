@@ -1,12 +1,12 @@
-import { KeyFunction, NumberProducer, StringProducer } from './Types';
+import { KeyFunction, NumberProducer } from './Types';
 import { Bindings, updateAttribute } from './Bindings';
 import { createSvgElement } from '../util/svg-element';
 
 export class Ellipses extends Bindings {
   private cxProducer?: NumberProducer;
   private cyProducer?: NumberProducer;
-  private rxProducer?: NumberProducer;
-  private ryProducer?: NumberProducer;
+  private rxProducer: NumberProducer = 4;
+  private ryProducer: NumberProducer = 2;
 
   constructor(parent: SVGElement, keyFunction: KeyFunction) {
     super(parent, keyFunction);
@@ -33,7 +33,7 @@ export class Ellipses extends Bindings {
   }
 
   protected createView(model: any) {
-    const ellipse = createSvgElement('ellipse', {}, this.parent);
+    const ellipse = createSvgElement('ellipse', this.parent);
     this.updateView(model, ellipse);
     return ellipse;
   }

@@ -2,21 +2,23 @@ import { storiesOf } from '@storybook/html';
 import {
   Rectangles,
   TranslationProducer,
-  createSvgElement,
+  createResizableDiv,
+  createResponsiveSvg,
 } from '../../svg-bindings';
 
 const data = [{ id: 1, x: 10, y: 10 }, { id: 2, x: 20, y: 20 }];
 
 export const results: any = {};
-results.basic = document.createElement('div');
-results.rounded = document.createElement('div');
+results.rounded = createResizableDiv();
+results.basic = createResizableDiv();
 
 function createBasic() {
-  const svg = createSvgElement(
-    'svg',
-    { viewBox: '0 0 100 100' },
-    results.basic
-  );
+  const svg = createResponsiveSvg(results.basic, {
+    x: 0,
+    y: 0,
+    width: 50,
+    height: 50,
+  });
 
   const rectangles = new Rectangles(svg, model => model.id);
   rectangles
@@ -44,11 +46,12 @@ function createBasic() {
 }
 
 function createRounded() {
-  const svg = createSvgElement(
-    'svg',
-    { viewBox: '0 0 100 100' },
-    results.rounded
-  );
+  const svg = createResponsiveSvg(results.rounded, {
+    x: 0,
+    y: 0,
+    width: 50,
+    height: 50,
+  });
 
   const rectangles = new Rectangles(svg, model => model.id);
   rectangles

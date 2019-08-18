@@ -1,16 +1,15 @@
 import { storiesOf } from '@storybook/html';
-import { Paths, createSvgElement } from '../../svg-bindings';
+import {
+  Paths,
+  createResizableDiv,
+  createResponsiveSvg,
+} from '../../svg-bindings';
 
 export const results: any = {};
-results.defaults = document.createElement('div');
-results.basic = document.createElement('div');
+results.basic = createResizableDiv();
 
 function createBasic() {
-  const svg = createSvgElement(
-    'svg',
-    { viewBox: '0 0 100 100' },
-    results.basic
-  );
+  const svg = createResponsiveSvg(results.basic);
 
   const models = [
     {

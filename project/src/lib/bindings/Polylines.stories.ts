@@ -1,15 +1,15 @@
 import { storiesOf } from '@storybook/html';
-import { Polylines, createSvgElement } from '../../svg-bindings';
+import {
+  Polylines,
+  createResizableDiv,
+  createResponsiveSvg,
+} from '../../svg-bindings';
 
 export const results: any = {};
-results.basic = document.createElement('div');
+results.basic = createResizableDiv();
 
 function createBasic() {
-  const svg = createSvgElement(
-    'svg',
-    { viewBox: '0 0 100 100' },
-    results.basic
-  );
+  const svg = createResponsiveSvg(results.basic);
 
   const points = [10, 10, 20, 50, 30, 10];
   const models = [
