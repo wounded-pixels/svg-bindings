@@ -7,7 +7,7 @@
     "svg",
     "svg-bindings"
   ],
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": false,
   "main": "dist/svg-bindings.js",
   "module": "dist/svg-bindings.es.js",
@@ -19,8 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/node": "11.11.3",
-    "@types/storybook__html": "^5.0.2",
-    "@wounded-pixels/svg-bindings": "^0.2.0"
+    "@types/storybook__html": "^5.0.2"
   },
   "scripts": {
     "test": "jest --watch ./src/lib",

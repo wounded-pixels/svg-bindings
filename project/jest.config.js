@@ -10,5 +10,6 @@ module.exports = {
     '<rootDir>/src/lib/bindings/Paths.stories.ts',
     '<rootDir>/src/lib/bindings/Polylines.stories.ts',
     '<rootDir>/src/lib/bindings/Rectangles.stories.ts',
+    '<rootDir>/src/lib/bindings/Text.stories.ts',
   ],
 };
