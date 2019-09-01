@@ -8,6 +8,7 @@ export { Lines } from './lib/bindings/Lines';
 export { Paths } from './lib/bindings/Paths';
 export { Polylines } from './lib/bindings/Polylines';
 export { Rectangles } from './lib/bindings/Rectangles';
+export { Text } from './lib/bindings/Text';
 export {
   TranslationProducer,
 } from './lib/transform-producers/TranslationProducer';

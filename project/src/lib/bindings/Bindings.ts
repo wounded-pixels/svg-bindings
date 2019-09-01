@@ -1,4 +1,5 @@
 import {
+  BooleanProducer,
   KeyFunction,
   NumberArrayProducer,
   NumberProducer,
@@ -6,12 +7,15 @@ import {
 } from './Types';
 import { TransformProducer } from '../transform-producers/TransformProducer';
 
-/**
- * Returns a string representation of a number for use in an attribute
- * @param producer
- * @param model
- */
 export function produceNumber(producer: NumberProducer, model: any): number {
+  return typeof producer === 'function' ? producer(model) : producer;
+}
+
+export function produceString(producer: StringProducer, model: any): string {
+  return typeof producer === 'function' ? producer(model) : producer;
+}
+
+export function produceBoolean(producer: BooleanProducer, model: any): boolean {
   return typeof producer === 'function' ? producer(model) : producer;
 }
 
@@ -48,7 +52,7 @@ export abstract class Bindings {
 
   private fillProducer: StringProducer = 'grey';
   private opacityProducer?: NumberProducer;
-  private strokeProducer: StringProducer = 'grey';
+  private strokeProducer: StringProducer = 'black';
   private strokeWidthProducer: NumberProducer = 1;
   private transformProducers: TransformProducer[] = [];
 
