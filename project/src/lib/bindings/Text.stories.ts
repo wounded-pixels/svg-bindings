@@ -3,11 +3,13 @@ import {
   Text,
   createResizableDiv,
   createResponsiveSvg,
+  createSvgElement,
 } from '../../svg-bindings';
 
 export const results: any = {};
 results.defaults = createResizableDiv();
 results.basic = createResizableDiv(100, 200, 200, 300, 300, 400);
+results.textAnchor = createResizableDiv(100, 200, 200, 300, 300, 400);
 
 const models = [
   { id: 1, x: 10, y: 10, text: 'Hi 10' },
@@ -44,9 +46,40 @@ function createDefaults() {
 
   text.update(models);
 }
+
+function createTextAnchor() {
+  const svg = createResponsiveSvg(results.textAnchor);
+  const fixedX = 50;
+
+  createSvgElement('line', svg, {
+    x1: '' + fixedX,
+    y1: '0',
+    x2: '' + fixedX,
+    y2: '100',
+    stroke: 'grey',
+  });
+
+  const anchorModels = [
+    { id: 1, anchor: 'start' },
+    { id: 2, anchor: 'middle' },
+    { id: 3, anchor: 'end' },
+  ];
+
+  const text = new Text(svg, model => model.id);
+  text
+    .x(fixedX)
+    .y(m => m.id * 30)
+    .textAnchor(m => m.anchor)
+    .text('hello');
+
+  text.update(anchorModels);
+}
+
 createBasic();
 createDefaults();
+createTextAnchor();
 
 storiesOf('Text', module)
   .add('defaults', () => results.defaults)
-  .add('basic construction', () => results.basic);
+  .add('basic construction', () => results.basic)
+  .add('text anchor', () => results.textAnchor);
