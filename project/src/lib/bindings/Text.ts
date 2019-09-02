@@ -3,6 +3,7 @@ import {
   BooleanProducer,
   NumberProducer,
   StringProducer,
+  TextAnchorProducer,
 } from './Types';
 
 import {
@@ -20,6 +21,7 @@ export class Text extends Bindings {
   private fontSizeProducer?: StringProducer;
   private fontFamilyProducer?: StringProducer;
   private isBoldProducer: BooleanProducer = false;
+  private textAnchorProducer?: TextAnchorProducer;
 
   constructor(parent: SVGElement, keyFunction: KeyFunction) {
     super(parent, keyFunction);
@@ -55,6 +57,15 @@ export class Text extends Bindings {
     return this;
   }
 
+  /**
+   * controls the horizontal alignment of the text
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor
+   */
+  textAnchor(textAnchorProducer: TextAnchorProducer) {
+    this.textAnchorProducer = textAnchorProducer;
+    return this;
+  }
+
   protected createView(model: any) {
     const text = createSvgElement('text', this.parent);
     this.updateView(model, text);
@@ -67,6 +78,7 @@ export class Text extends Bindings {
     updateAttribute(text, 'y', this.yProducer, model);
     updateAttribute(text, 'font-size', this.fontSizeProducer, model);
     updateAttribute(text, 'font-family', this.fontFamilyProducer, model);
+    updateAttribute(text, 'text-anchor', this.textAnchorProducer, model);
 
     const fontWeightValue = produceBoolean(this.isBoldProducer, model)
       ? 'bold'
