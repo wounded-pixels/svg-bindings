@@ -10,6 +10,19 @@ export type TextAnchor = 'start' | 'middle' | 'end';
 export type TextAnchorFunction = (model: any) => TextAnchor;
 export type TextAnchorProducer = TextAnchorFunction | TextAnchor;
 
+export type AlignmentBaseline =
+  | 'baseline'
+  | 'middle'
+  | 'central'
+  | 'text-top'
+  | 'hanging'
+  | 'top'
+  | 'bottom';
+export type AlignmentBaselineFunction = (model: any) => AlignmentBaseline;
+export type AlignmentBaselineProducer =
+  | AlignmentBaselineFunction
+  | AlignmentBaseline;
+
 export type NumberArrayFunction = (model: any) => number[];
 export type NumberArrayProducer = NumberArrayFunction | number[];
 
