@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/html';
 import {
+  Lines,
   Text,
   createResizableDiv,
   createResponsiveSvg,
@@ -10,6 +11,7 @@ export const results: any = {};
 results.defaults = createResizableDiv();
 results.basic = createResizableDiv(100, 200, 200, 300, 300, 400);
 results.textAnchor = createResizableDiv(100, 200, 200, 300, 300, 400);
+results.alignmentBaseline = createResizableDiv(100, 200, 200, 300, 300, 400);
 
 const models = [
   { id: 1, x: 10, y: 10, text: 'Hi 10' },
@@ -70,16 +72,64 @@ function createTextAnchor() {
     .x(fixedX)
     .y(m => m.id * 30)
     .textAnchor(m => m.anchor)
-    .text('hello');
+    .stroke('none')
+    .fill('black')
+    .fontSize('16px')
+    .text(m => m.anchor);
 
   text.update(anchorModels);
+}
+
+function createAlignmentBaseline() {
+  const gap = 40;
+
+  const alignmentModels = [
+    { id: 1, alignment: 'baseline' },
+    { id: 2, alignment: 'middle' },
+    { id: 3, alignment: 'text-top' },
+    { id: 4, alignment: 'hanging' },
+    { id: 5, alignment: 'top' },
+    { id: 6, alignment: 'bottom' },
+    { id: 7, alignment: 'central' },
+  ];
+
+  const svg = createResponsiveSvg(results.alignmentBaseline, {
+    x: 0,
+    y: 0,
+    width: 130,
+    height: gap * (alignmentModels.length + 1),
+  });
+
+  const yProducer = (m: any) => m.id * gap;
+
+  const lines = new Lines(svg, model => model.id);
+  lines
+    .x1(0)
+    .y1(yProducer)
+    .x2(130)
+    .y2(yProducer);
+
+  const text = new Text(svg, model => model.id);
+  text
+    .x(10)
+    .y(yProducer)
+    .alignmentBaseline(m => m.alignment)
+    .stroke('none')
+    .fill('black')
+    .fontSize('16px')
+    .text(m => m.alignment + ' AaGg');
+
+  lines.update(alignmentModels);
+  text.update(alignmentModels);
 }
 
 createBasic();
 createDefaults();
 createTextAnchor();
+createAlignmentBaseline();
 
 storiesOf('Text', module)
   .add('defaults', () => results.defaults)
   .add('basic construction', () => results.basic)
-  .add('text anchor', () => results.textAnchor);
+  .add('text anchor', () => results.textAnchor)
+  .add('alignment of baseline', () => results.alignmentBaseline);

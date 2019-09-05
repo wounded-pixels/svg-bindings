@@ -1,4 +1,5 @@
 import {
+  AlignmentBaselineProducer,
   KeyFunction,
   BooleanProducer,
   NumberProducer,
@@ -22,6 +23,7 @@ export class Text extends Bindings {
   private fontFamilyProducer?: StringProducer;
   private isBoldProducer: BooleanProducer = false;
   private textAnchorProducer?: TextAnchorProducer;
+  private alignmentBaselineProducer: AlignmentBaselineProducer = 'baseline';
 
   constructor(parent: SVGElement, keyFunction: KeyFunction) {
     super(parent, keyFunction);
@@ -66,6 +68,11 @@ export class Text extends Bindings {
     return this;
   }
 
+  alignmentBaseline(alignmentBaselineProducer: AlignmentBaselineProducer) {
+    this.alignmentBaselineProducer = alignmentBaselineProducer;
+    return this;
+  }
+
   protected createView(model: any) {
     const text = createSvgElement('text', this.parent);
     this.updateView(model, text);
@@ -79,6 +86,12 @@ export class Text extends Bindings {
     updateAttribute(text, 'font-size', this.fontSizeProducer, model);
     updateAttribute(text, 'font-family', this.fontFamilyProducer, model);
     updateAttribute(text, 'text-anchor', this.textAnchorProducer, model);
+    updateAttribute(
+      text,
+      'alignment-baseline',
+      this.alignmentBaselineProducer,
+      model
+    );
 
     const fontWeightValue = produceBoolean(this.isBoldProducer, model)
       ? 'bold'
