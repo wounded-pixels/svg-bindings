@@ -1,6 +1,7 @@
 import {
   BooleanProducer,
   KeyFunction,
+  LabeledValueProducer,
   NumberArrayProducer,
   NumberProducer,
   StringProducer,
@@ -33,6 +34,17 @@ export function updateAttribute(
   view.setAttribute(attribute, '' + value);
 }
 
+const useEventType = typeof PointerEvent === 'function' ? 'pointer' : 'mouse';
+const motionEventTypes = [
+  'click',
+  'touchstart',
+  'touchend',
+  'touchmove',
+  `${useEventType}enter`,
+  `${useEventType}leave`,
+  `${useEventType}move`,
+];
+
 /**
  * Abstract class to keep track of bindings between model objects and view objects
  * The client code sets up a binding which describes how to represent model objects with SVGs
@@ -50,16 +62,21 @@ export abstract class Bindings {
   private readonly keyFunction: KeyFunction;
   private readonly viewMap: { [key: string]: SVGElement };
 
+  private modelMap: { [key: string]: any };
+
   private fillProducer: StringProducer = 'grey';
   private opacityProducer?: NumberProducer;
   private strokeProducer: StringProducer = 'black';
   private strokeWidthProducer: NumberProducer = 1;
   private transformProducers: TransformProducer[] = [];
+  private tooltipTitleProducer?: StringProducer;
+  private tooltipLabeledValueProducers?: LabeledValueProducer[];
 
   protected constructor(parent: SVGElement, keyFunction: KeyFunction) {
     this.parent = parent;
     this.keyFunction = keyFunction;
     this.viewMap = {};
+    this.modelMap = {};
   }
 
   update(models: any[]) {
@@ -70,15 +87,19 @@ export abstract class Bindings {
       delete leaving[key];
 
       const view = this.viewMap[key];
+      this.modelMap[key] = model;
       if (view) {
         this.updateView(model, view);
       } else {
-        this.viewMap[key] = this.createView(model);
+        const view = this.createView(model);
+        this.addTooltipListener(view, key);
+        this.viewMap[key] = view;
       }
     });
 
     Object.keys(leaving).forEach(key => {
       this.removeView(key);
+      delete this.modelMap[key];
       delete this.viewMap[key];
     });
   }
@@ -131,5 +152,31 @@ export abstract class Bindings {
   addTransform(transformProducer: TransformProducer) {
     this.transformProducers.push(transformProducer);
     return this;
+  }
+
+  addTooltip(
+    titleProducer: StringProducer,
+    labeledValueProducers: LabeledValueProducer[]
+  ) {
+    this.tooltipTitleProducer = titleProducer;
+    this.tooltipLabeledValueProducers = labeledValueProducers;
+  }
+
+  private addTooltipListener(view: SVGElement, key: string) {
+    const pointerHandler = (event: Event) => {
+      if (!this.tooltipTitleProducer) {
+        return;
+      }
+
+      const model = this.modelMap[key];
+      console.log('key', key, 'event', event);
+
+      const title = produceString(this.tooltipTitleProducer, model);
+      console.log('title', title);
+    };
+
+    motionEventTypes.map(eventType => {
+      view.addEventListener(eventType, pointerHandler);
+    });
   }
 }
