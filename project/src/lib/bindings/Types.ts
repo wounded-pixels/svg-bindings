@@ -28,3 +28,8 @@ export type NumberArrayProducer = NumberArrayFunction | number[];
 
 export type BooleanFunction = (model: any) => boolean;
 export type BooleanProducer = BooleanFunction | boolean;
+
+export type LabeledValueProducer = {
+  label: string;
+  valueProducer: StringProducer;
+};
