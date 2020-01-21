@@ -34,6 +34,13 @@ export function updateAttribute(
   view.setAttribute(attribute, '' + value);
 }
 
+const styleTooltip = (tooltip: HTMLElement): void => {
+  const style = tooltip.style;
+  style.position = 'absolute';
+  style.top = '5px';
+  style.right = '5px';
+};
+
 const useEventType = typeof PointerEvent === 'function' ? 'pointer' : 'mouse';
 const motionEventTypes = [
   'click',
@@ -61,8 +68,9 @@ export abstract class Bindings {
   protected readonly parent: SVGElement;
   private readonly keyFunction: KeyFunction;
   private readonly viewMap: { [key: string]: SVGElement };
+  private readonly modelMap: { [key: string]: any };
 
-  private modelMap: { [key: string]: any };
+  private readonly tooltipElement: HTMLElement;
 
   private fillProducer: StringProducer = 'grey';
   private opacityProducer?: NumberProducer;
@@ -77,6 +85,8 @@ export abstract class Bindings {
     this.keyFunction = keyFunction;
     this.viewMap = {};
     this.modelMap = {};
+    this.tooltipElement = document.createElement('div');
+    styleTooltip(this.tooltipElement);
   }
 
   update(models: any[]) {
@@ -155,28 +165,49 @@ export abstract class Bindings {
   }
 
   addTooltip(
+    tooltipContainer: HTMLElement,
     titleProducer: StringProducer,
     labeledValueProducers: LabeledValueProducer[]
   ) {
     this.tooltipTitleProducer = titleProducer;
     this.tooltipLabeledValueProducers = labeledValueProducers;
+
+    tooltipContainer.appendChild(this.tooltipElement);
   }
 
   private addTooltipListener(view: SVGElement, key: string) {
     const pointerHandler = (event: Event) => {
-      if (!this.tooltipTitleProducer) {
-        return;
+      if (event.type.includes('leave')) {
+        this.tooltipElement.innerHTML = '';
+      } else {
+        const model = this.modelMap[key];
+        this.populateTooltip(model);
       }
-
-      const model = this.modelMap[key];
-      console.log('key', key, 'event', event);
-
-      const title = produceString(this.tooltipTitleProducer, model);
-      console.log('title', title);
     };
 
     motionEventTypes.map(eventType => {
       view.addEventListener(eventType, pointerHandler);
     });
+  }
+
+  private populateTooltip(model: any) {
+    if (!this.tooltipTitleProducer) {
+      return;
+    }
+    const title = produceString(this.tooltipTitleProducer, model);
+    const titleDiv = `<div>${title}</div>`;
+
+    const labeledValues = this.tooltipLabeledValueProducers
+      ? this.tooltipLabeledValueProducers
+          .map(lvp => {
+            const label = lvp.label;
+            const value = produceString(lvp.valueProducer, model);
+
+            return `<div><span>${label}:</span><span>${value}</span></div>`;
+          })
+          .join('')
+      : '';
+
+    this.tooltipElement.innerHTML = `<div>${titleDiv}${labeledValues}</div>`;
   }
 }
