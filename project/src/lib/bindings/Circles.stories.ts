@@ -29,7 +29,7 @@ function createBasic() {
     .stroke('black')
     .strokeWidth(0.5)
     .addTransform(new TranslationProducer(m => m.id * 2, 0))
-    .addTooltip(d => 'Circle ' + d.id, [
+    .addTooltip(results.basic, d => 'Circle ' + d.id, [
       { label: 'x', valueProducer: d => d.x },
       { label: 'y', valueProducer: d => d.y },
     ]);
