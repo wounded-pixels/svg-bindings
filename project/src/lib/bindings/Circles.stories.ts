@@ -14,6 +14,7 @@ results.basic = createResizableDiv();
 const models = [
   { id: 1, x: 10, y: 10, color: 'red' },
   { id: 2, x: 50, y: 50, color: 'blue' },
+  { id: 3, x: 80, y: 97, color: 'yellow' },
 ];
 
 function createBasic() {

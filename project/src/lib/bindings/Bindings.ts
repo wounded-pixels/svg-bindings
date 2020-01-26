@@ -37,8 +37,9 @@ export function updateAttribute(
 const styleTooltip = (tooltip: HTMLElement): void => {
   const style = tooltip.style;
   style.position = 'absolute';
-  style.top = '5px';
-  style.right = '5px';
+  style.padding = '7px';
+  style.borderRadius = '5px';
+  style.display = 'none';
 };
 
 const useEventType = typeof PointerEvent === 'function' ? 'pointer' : 'mouse';
@@ -77,8 +78,9 @@ export abstract class Bindings {
   private strokeProducer: StringProducer = 'black';
   private strokeWidthProducer: NumberProducer = 1;
   private transformProducers: TransformProducer[] = [];
-  private tooltipTitleProducer?: StringProducer;
+  private tooltipTitleProducer: StringProducer = '';
   private tooltipLabeledValueProducers?: LabeledValueProducer[];
+  private tooltipBackgroundColorProducer: StringProducer = '#ebdfbe';
 
   protected constructor(parent: SVGElement, keyFunction: KeyFunction) {
     this.parent = parent;
@@ -167,21 +169,26 @@ export abstract class Bindings {
   addTooltip(
     tooltipContainer: HTMLElement,
     titleProducer: StringProducer,
-    labeledValueProducers: LabeledValueProducer[]
+    labeledValueProducers: LabeledValueProducer[],
+    backgroundColorProducer?: StringProducer
   ) {
     this.tooltipTitleProducer = titleProducer;
     this.tooltipLabeledValueProducers = labeledValueProducers;
+    this.tooltipBackgroundColorProducer =
+      backgroundColorProducer || this.tooltipBackgroundColorProducer;
 
     tooltipContainer.appendChild(this.tooltipElement);
   }
 
   private addTooltipListener(view: SVGElement, key: string) {
-    const pointerHandler = (event: Event) => {
+    const pointerHandler = (event: any) => {
       if (event.type.includes('leave')) {
         this.tooltipElement.innerHTML = '';
+        this.tooltipElement.style.display = 'none';
       } else {
         const model = this.modelMap[key];
         this.populateTooltip(model);
+        this.positionTooltip(event);
       }
     };
 
@@ -191,9 +198,6 @@ export abstract class Bindings {
   }
 
   private populateTooltip(model: any) {
-    if (!this.tooltipTitleProducer) {
-      return;
-    }
     const title = produceString(this.tooltipTitleProducer, model);
     const titleDiv = `<div>${title}</div>`;
 
@@ -208,6 +212,18 @@ export abstract class Bindings {
           .join('')
       : '';
 
+    this.tooltipElement.style.backgroundColor = produceString(
+      this.tooltipBackgroundColorProducer,
+      model
+    );
     this.tooltipElement.innerHTML = `<div>${titleDiv}${labeledValues}</div>`;
+  }
+
+  private positionTooltip(event: any) {
+    this.tooltipElement.style.display = 'block';
+
+    const { clientX, clientY } = event;
+    this.tooltipElement.style.top = `${clientY + 10}px`;
+    this.tooltipElement.style.left = `${clientX + 10}px`;
   }
 }
