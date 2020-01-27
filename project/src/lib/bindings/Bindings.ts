@@ -63,6 +63,8 @@ const motionEventTypes = [
  * - which model objects are missing from the updated list and need to have their corresponding SVGs removed
  * - which model objects are still present and should have their corresponding SVGs updated
  *
+ * The binding also allows the client code to configure a tooltip
+ *
  * Each concrete implementation of Bindings defines the attributes that can be populated from the model objects
  */
 export abstract class Bindings {
@@ -189,6 +191,7 @@ export abstract class Bindings {
         const model = this.modelMap[key];
         this.populateTooltip(model);
         this.positionTooltip(event);
+        this.tooltipElement.style.display = 'block';
       }
     };
 
@@ -220,8 +223,6 @@ export abstract class Bindings {
   }
 
   private positionTooltip(event: any) {
-    this.tooltipElement.style.display = 'block';
-
     const { clientX, clientY } = event;
     this.tooltipElement.style.top = `${clientY + 10}px`;
     this.tooltipElement.style.left = `${clientX + 10}px`;

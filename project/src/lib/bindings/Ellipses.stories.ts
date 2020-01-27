@@ -27,7 +27,11 @@ function createBasic() {
     .ry(m => (m.id % 2 === 1 ? 10 : 5))
     .fill('none')
     .stroke(m => (m.id % 2 === 0 ? 'red' : 'blue'))
-    .strokeWidth(0.5);
+    .strokeWidth(0.5)
+    .addTooltip(results.basic, 'Ellipse', [
+      { label: 'x', valueProducer: m => m.x },
+      { label: 'y', valueProducer: m => m.y },
+    ]);
 
   ellipses.update(models);
 }
