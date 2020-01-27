@@ -2,7 +2,7 @@ import { results } from './Ellipses.stories';
 
 test('basic construction', () => {
   expect(results.basic.outerHTML).toMatchInlineSnapshot(
-    `"<div style=\\"min-width: 200px; min-height: 200px; width: 300px; height: 300px; max-width: 400px; max-height: 400px; border: 1px solid black; resize: both; overflow: hidden;\\"><svg viewBox=\\"0 0 50 50\\" preserveAspectRatio=\\"xMidYMid meet\\" style=\\"width: 100%; height: 100%; display: inline-block; overflow: hidden;\\"><ellipse fill=\\"none\\" stroke=\\"blue\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" rx=\\"5\\" ry=\\"10\\"></ellipse><ellipse fill=\\"none\\" stroke=\\"red\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" rx=\\"10\\" ry=\\"5\\"></ellipse></svg></div>"`
+    `"<div style=\\"min-width: 200px; min-height: 200px; width: 300px; height: 300px; max-width: 400px; max-height: 400px; border: 1px solid black; resize: both; overflow: hidden;\\"><svg viewBox=\\"0 0 50 50\\" preserveAspectRatio=\\"xMidYMid meet\\" style=\\"width: 100%; height: 100%; display: inline-block; overflow: hidden;\\"><ellipse fill=\\"none\\" stroke=\\"blue\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" rx=\\"5\\" ry=\\"10\\"></ellipse><ellipse fill=\\"none\\" stroke=\\"red\\" stroke-width=\\"0.5\\" cx=\\"25\\" cy=\\"25\\" rx=\\"10\\" ry=\\"5\\"></ellipse></svg><div style=\\"position: absolute; padding: 7px; border-radius: 5px; display: none;\\"></div></div>"`
   );
 });
 
